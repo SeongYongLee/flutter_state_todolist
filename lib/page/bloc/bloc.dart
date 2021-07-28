@@ -1,15 +1,19 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:vrouter/vrouter.dart';
 
 import 'package:flutter_state_todolist/state/bloc/todo/bloc.dart';
 import 'package:flutter_state_todolist/state/bloc/todo/event.dart';
 import 'package:flutter_state_todolist/model/todo_repository.dart';
 
-import 'edit.dart';
-import 'list.dart';
+export 'list.dart';
+export 'edit.dart';
 
 class BlocPage extends StatelessWidget {
+  final Widget child;
+
+  const BlocPage(this.child);
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider(
@@ -17,17 +21,13 @@ class BlocPage extends StatelessWidget {
       child: BlocProvider(
         create: (context) => TodoBloc(RepositoryProvider.of<TodoRepository>(context))
           ..add(TodoEventFetching()),
-        child: MaterialApp(
+        child: VMaterialApp(
           title: 'TODOLIST (BLOC)',
           theme: ThemeData(
             primarySwatch: Colors.blue,
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
-          initialRoute: '/bloc',
-          routes: {
-            '/bloc': (context) => BlocListPage(),
-            '/bloc/edit': (context) => BlocEditPage(),
-          },
+          child: child,
         ),
       ),
     );

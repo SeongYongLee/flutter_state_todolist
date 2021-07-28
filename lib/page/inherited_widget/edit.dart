@@ -1,26 +1,20 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vrouter/vrouter.dart';
 
-import 'package:flutter_state_todolist/state/bloc/todo/bloc.dart';
 import 'package:flutter_state_todolist/model/todo.dart';
 import 'package:flutter_state_todolist/component/todo_edit_card.dart';
-import 'package:flutter_state_todolist/model/todo_repository.dart';
 
-class BlocEditPage extends StatelessWidget {
+class InheritedWidgetEditPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Todo todo;
+    Todo todo = new Todo(1, DateTime.now());
     final index = int.parse(context.vRouter.pathParameters['index'] as String);
 
-    if (index != -1) {
-      final repository = RepositoryProvider.of<TodoRepository>(context);
-      final todos = repository.getList();
-      todo = todos[index];
-    } else {
-      todo = RepositoryProvider.of<TodoRepository>(context).getNew() as Todo;
-    }
+    // TODO : init todo
+    // if (index != -1) {
+    // } else {
+    // }
 
     StringBuffer title = StringBuffer(todo.title);
     StringBuffer role = StringBuffer(todo.role);
@@ -32,24 +26,20 @@ class BlocEditPage extends StatelessWidget {
       todo.role = role.toString();
       todo.goal = goal.toString();
       todo.value = value.toString();
-      BlocProvider.of<TodoBloc>(context)..add(TodoEventSaving(todo));
-      context.vRouter.to('/bloc');
+      // TODO : SAVE
+      // BlocProvider.of<TodoBloc>(context)..add(TodoEventSaving(todo));
+      context.vRouter.to('/widget');
     }
 
-    var appbar = AppBar(
-      title: Text('TODOLIST (BLOC) - EDIT'),
-      actions: [
-        Padding(
+    var appbar = AppBar(title: Text('TODOLIST (Inherited Widget) - EDIT'), actions: [
+      Padding(
           padding: EdgeInsets.only(right: 20),
           child: GestureDetector(
-            onTap: () {
-              onSaveTodo();
-            },
-            child: Icon(Icons.save),
-          ),
-        ),
-      ],
-    );
+              onTap: () {
+                onSaveTodo();
+              },
+              child: Icon(Icons.save)))
+    ]);
 
     return Scaffold(
       appBar: appbar,

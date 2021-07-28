@@ -1,27 +1,47 @@
 import 'package:flutter/material.dart';
+import 'package:vrouter/vrouter.dart';
 
 import 'package:flutter_state_todolist/page/home.dart';
 import 'package:flutter_state_todolist/page/bloc/bloc.dart';
+import 'package:flutter_state_todolist/page/inherited_widget/inherited_widget.dart';
 
 void main() {
-  runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Welcome State TodoList',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      initialRoute: '/',
-      routes: {
-        '/': (context) => HomePage(),
-        '/bloc': (context) => BlocPage(),
-      },
-    );
-  }
+  runApp(
+    VRouter(
+      routes: [
+        VWidget(
+          path: '/',
+          widget: HomePage(),
+          stackedRoutes: [
+            VNester(
+              path: '/bloc',
+              widgetBuilder: (child) => BlocPage(child),
+              nestedRoutes: [
+                VWidget(
+                  path: null,
+                  widget: BlocListPage(),
+                  stackedRoutes: [
+                    VWidget(path: 'edit/:index', widget: BlocEditPage())
+                  ],
+                ),
+              ],
+            ),
+            VNester(
+              path: '/widget',
+              widgetBuilder: (child) => InheritedWidgetPage(child),
+              nestedRoutes: [
+                VWidget(
+                  path: null,
+                  widget: InheritedWidgetListPage(),
+                  stackedRoutes: [
+                    VWidget(path: 'edit/:index', widget: InheritedWidgetEditPage())
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
+      ],
+    ),
+  );
 }
