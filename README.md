@@ -4,20 +4,15 @@ flutter_state_todolist
 
 ## ROUTER
 
-### VRouter
+### [VRouter](https://vrouter.dev)
 
-#### Reference
-- https://vrouter.dev/
-
-## STATE LIST
+## STATE TODOLIST
  
-### TODOLIST (Inherited Widget)
+### Inherited Widget
 
 작업 중...
 
-#### Reference
-
-### TODOLIST (BLOC)
+### BLOC
 
 #### Reference
-- https://www.kowanas.com/coding/2020/12/26/bloc-2/
+- https://www.kowanas.com/coding/2020/12/26/bloc-2
