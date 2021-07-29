@@ -12,7 +12,8 @@ class InheritedWidgetListPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text('TODOLIST (Inherited Widget)')),
       // TODO : Show List, Edit
-      body: TodoListCard(todo: new Todo(1, DateTime.now()), state : 'widget'),
+      body: TodoListCard(
+          todo: new Todo(1, DateTime.now()), route: 'widget', index: -1),
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         backgroundColor: Colors.red,

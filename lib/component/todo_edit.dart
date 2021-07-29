@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:vrouter/vrouter.dart';
 
 import 'package:flutter_state_todolist/model/todo.dart';
-
+// Widget
+import 'package:flutter_state_todolist/state/inherited_widget/todo.dart';
+// BLOC
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_state_todolist/state/bloc/todo/bloc.dart';
 
@@ -11,12 +13,15 @@ class TodoEdit extends StatelessWidget {
   final String name;
   final String route;
   final Todo todo;
+  final int index;
 
-  TodoEdit({Key? key, required this.name, required this.route, required this.todo})
+  TodoEdit({Key? key, required this.name, required this.route, required this.todo, required this.index})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final TodoInheritedWidgetState state = TodoInheritedWidget.of(context);
+
     StringBuffer title = StringBuffer(todo.title);
     StringBuffer role = StringBuffer(todo.role);
     StringBuffer goal = StringBuffer(todo.goal);
@@ -28,7 +33,9 @@ class TodoEdit extends StatelessWidget {
       todo.goal = goal.toString();
       todo.value = value.toString();
       // TODO : SAVE
-      if (route == 'bloc') {
+      if (route == 'widget') {
+        state.setItem(index, todo);
+      } else if (route == 'bloc') {
         BlocProvider.of<TodoBloc>(context)..add(TodoEventSaving(todo));
       }
       context.vRouter.to('/$route');

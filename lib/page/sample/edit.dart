@@ -16,6 +16,7 @@ class InheritedWidgetEditPage extends StatelessWidget {
     // } else {
     // }
 
-    return TodoEdit(name: "InheritedWidget", route: 'widget', todo: todo);
+    return TodoEdit(
+        name: "InheritedWidget", route: 'widget', todo: todo, index: -1);
   }
 }

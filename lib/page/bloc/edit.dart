@@ -21,6 +21,6 @@ class BlocEditPage extends StatelessWidget {
       todo = RepositoryProvider.of<TodoRepository>(context).getNew() as Todo;
     }
 
-    return TodoEdit(name: "BLOC", route: 'bloc', todo: todo);
+    return TodoEdit(name: "BLOC", route: 'bloc', todo: todo, index: -1);
   }
 }

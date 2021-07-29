@@ -21,8 +21,10 @@ class BlocListPage extends StatelessWidget {
               itemCount: todos.length,
               itemBuilder: (context, index) {
                 return GestureDetector(
-                    onTap: () => context.vRouter.to('/bloc/edit/$index'),
-                    child: TodoListCard(todo: todos[index], state: 'bloc'));
+                  onTap: () => context.vRouter.to('/bloc/edit/$index'),
+                  child: TodoListCard(
+                      todo: todos[index], route: 'bloc', index: index),
+                );
               },
             );
           }

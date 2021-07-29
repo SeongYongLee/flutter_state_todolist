@@ -6,15 +6,21 @@ import 'package:flutter_state_todolist/model/todo.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_state_todolist/state/bloc/todo/bloc.dart';
+import 'package:flutter_state_todolist/state/inherited_widget/todo.dart';
 
 class TodoListCard extends StatelessWidget {
   final Todo todo;
-  final String state;
+  final String route;
+  final int index;
 
-  TodoListCard({Key? key, required this.todo, required this.state}) : super(key: key);
+  TodoListCard(
+      {Key? key, required this.todo, required this.route, required this.index})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final TodoInheritedWidgetState state = TodoInheritedWidget.of(context);
+
     return Card(
       shape: RoundedRectangleBorder(
           side: BorderSide(width: 1.0),
@@ -27,29 +33,33 @@ class TodoListCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Expanded(
-                      child: Text(todo.uid.toString() + '. ' + todo.title,
-                          maxLines: 1,
-                          overflow: TextOverflow.clip,
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontStyle: FontStyle.italic))),
-                  Text(DateFormat('yyyy-MM-dd').format(todo.created),
-                      style: TextStyle(fontStyle: FontStyle.italic)),
-                  PopupMenuButton(
-                      onSelected: (select) {
-                        // TODO : DELETE
-                        if (state == 'bloc') {
-                          BlocProvider.of<TodoBloc>(context)
-                            ..add(TodoEventDeleting(todo));
-                        }
-                      },
-                      itemBuilder: (context) => <PopupMenuEntry>[
-                        const PopupMenuItem(value: 0, child: Text('delete'))
-                      ])
-                ]),
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Expanded(
+                    child: Text(todo.uid.toString() + '. ' + todo.title,
+                        maxLines: 1,
+                        overflow: TextOverflow.clip,
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontStyle: FontStyle.italic))),
+                Text(DateFormat('yyyy-MM-dd').format(todo.created),
+                    style: TextStyle(fontStyle: FontStyle.italic)),
+                PopupMenuButton(
+                  onSelected: (select) {
+                    // TODO : DELETE
+                    if (route == 'widget') {
+                      state.deleteItem(index);
+                    } else if (route == 'bloc') {
+                      BlocProvider.of<TodoBloc>(context)
+                        ..add(TodoEventDeleting(todo));
+                    }
+                  },
+                  itemBuilder: (context) => <PopupMenuEntry>[
+                    const PopupMenuItem(value: 0, child: Text('delete'))
+                  ],
+                )
+              ],
+            ),
             TodoListCardShort(
                 title: 'As a ', titleColor: Colors.red, text: todo.role),
             TodoListCardShort(
@@ -68,8 +78,7 @@ class TodoListCardShort extends StatelessWidget {
   final titleColor;
   final text;
 
-  const TodoListCardShort(
-      {Key? key, this.title, this.titleColor, this.text})
+  const TodoListCardShort({Key? key, this.title, this.titleColor, this.text})
       : super(key: key);
 
   @override
@@ -78,16 +87,21 @@ class TodoListCardShort extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(title,
-            style: TextStyle(
-                fontStyle: FontStyle.italic,
-                fontWeight: FontWeight.bold,
-                color: titleColor)),
+        Text(
+          title,
+          style: TextStyle(
+              fontStyle: FontStyle.italic,
+              fontWeight: FontWeight.bold,
+              color: titleColor),
+        ),
         Expanded(
-            child: Text(text,
-                maxLines: 1,
-                overflow: TextOverflow.clip,
-                style: TextStyle(color: Colors.blueGrey))),
+          child: Text(
+            text,
+            maxLines: 1,
+            overflow: TextOverflow.clip,
+            style: TextStyle(color: Colors.blueGrey),
+          ),
+        ),
       ],
     );
   }
