@@ -10,10 +10,10 @@ import 'package:flutter_state_todolist/model/todo_repository.dart';
 export 'list.dart';
 export 'edit.dart';
 
-class BlocPage extends StatelessWidget {
+class BlocWidgetBuilder extends StatelessWidget {
   final Widget child;
 
-  const BlocPage(this.child);
+  const BlocWidgetBuilder(this.child);
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider(

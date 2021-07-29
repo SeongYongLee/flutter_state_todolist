@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:vrouter/vrouter.dart';
 
 import 'package:flutter_state_todolist/page/home.dart';
-import 'package:flutter_state_todolist/page/bloc/bloc.dart';
-import 'package:flutter_state_todolist/page/inherited_widget/inherited_widget.dart';
+import 'package:flutter_state_todolist/page/bloc/widget_builder.dart';
+import 'package:flutter_state_todolist/page/inherited_widget/widget_builder.dart';
 
 void main() {
   runApp(
@@ -15,7 +15,7 @@ void main() {
           stackedRoutes: [
             VNester(
               path: '/bloc',
-              widgetBuilder: (child) => BlocPage(child),
+              widgetBuilder: (child) => BlocWidgetBuilder(child),
               nestedRoutes: [
                 VWidget(
                   path: null,
@@ -28,7 +28,7 @@ void main() {
             ),
             VNester(
               path: '/widget',
-              widgetBuilder: (child) => InheritedWidgetPage(child),
+              widgetBuilder: (child) => InheritedWidgetBuilder(child),
               nestedRoutes: [
                 VWidget(
                   path: null,

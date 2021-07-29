@@ -5,10 +5,10 @@ import 'package:vrouter/vrouter.dart';
 export 'list.dart';
 export 'edit.dart';
 
-class InheritedWidgetPage extends StatelessWidget {
+class InheritedWidgetBuilder extends StatelessWidget {
   final Widget child;
 
-  const InheritedWidgetPage(this.child);
+  const InheritedWidgetBuilder(this.child);
   @override
   Widget build(BuildContext context) {
     return VMaterialApp(
