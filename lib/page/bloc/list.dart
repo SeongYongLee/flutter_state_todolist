@@ -14,12 +14,7 @@ class BlocListPage extends StatelessWidget {
       appBar: AppBar(title: Text('TODOLIST (BLOC)')),
       body: BlocBuilder<TodoBloc, TodoState>(
         builder: (context, state) {
-          if (state is TodoStateNotInitialized)
-            return Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [Center(child: CircularProgressIndicator())],
-            );
-          else if (state is TodoStateFetched) {
+          if (state is TodoStateFetched) {
             final repository = RepositoryProvider.of<TodoRepository>(context);
             final todos = repository.getList();
             return ListView.builder(
@@ -31,7 +26,10 @@ class BlocListPage extends StatelessWidget {
               },
             );
           }
-          throw '';
+          return Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [Center(child: CircularProgressIndicator())],
+          );
         },
       ),
       floatingActionButton: FloatingActionButton(

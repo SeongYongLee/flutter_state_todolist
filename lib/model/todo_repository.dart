@@ -29,6 +29,7 @@ class TodoRepository {
   }
 
   Future<void> fetch() async {
+    // TODO : API CODE HERE
     final SharedPreferences pref = await SharedPreferences.getInstance();
     final data = pref.getStringList(_key);
     data?.forEach((element) {
@@ -39,6 +40,7 @@ class TodoRepository {
   }
 
   Future<void> save() async {
+    // TODO : API CODE HERE
     final SharedPreferences pref = await SharedPreferences.getInstance();
     var data = <String>[];
     _todos.forEach((key, value) {

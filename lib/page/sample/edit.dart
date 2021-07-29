@@ -8,7 +8,6 @@ import 'package:flutter_state_todolist/component/todo_edit.dart';
 class InheritedWidgetEditPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    print(_Todo.of(context));
     Todo todo = new Todo(1, DateTime.now());
     final index = int.parse(context.vRouter.pathParameters['index'] as String);
 

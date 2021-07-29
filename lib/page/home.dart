@@ -21,13 +21,13 @@ final stateList = [
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return VMaterialApp(
       title: 'Welcome State TodoList',
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: Scaffold(
+      child: Scaffold(
         appBar: AppBar(title: Text('SELECT TODOLIST')),
         body: ListView.builder(
           itemCount: stateList.length,
