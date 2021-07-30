@@ -8,7 +8,7 @@ class _TodoInherited extends InheritedWidget {
   _TodoInherited({Key? key, required this.child, required this.todo}) : super(key: key, child: child);
 
   @override
-  bool updateShouldNotify(InheritedWidget oldWidget) => false;
+  bool updateShouldNotify(InheritedWidget oldWidget) => true;
 }
 
 class TodoInheritedWidget extends StatefulWidget {
@@ -33,9 +33,9 @@ class TodoInheritedWidgetState extends State<TodoInheritedWidget> {
 
   int get itemsCount => _todolist.length;
 
-  void addItem(int uid, DateTime created) {
+  void addItem() {
     setState(() {
-      _todolist.add(Todo(uid, created));
+      _todolist.add(Todo(itemsCount, DateTime.now()));
     });
   }
 

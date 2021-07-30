@@ -19,7 +19,6 @@ class TodoListCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TodoInheritedWidgetState state = TodoInheritedWidget.of(context);
 
     return Card(
       shape: RoundedRectangleBorder(
@@ -48,10 +47,12 @@ class TodoListCard extends StatelessWidget {
                   onSelected: (select) {
                     // TODO : DELETE
                     if (route == 'widget') {
+                      final TodoInheritedWidgetState state = TodoInheritedWidget.of(context);
                       state.deleteItem(index);
                     } else if (route == 'bloc') {
                       BlocProvider.of<TodoBloc>(context)
                         ..add(TodoEventDeleting(todo));
+                    } else if (route == 'riverpod') {
                     }
                   },
                   itemBuilder: (context) => <PopupMenuEntry>[

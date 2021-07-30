@@ -27,7 +27,7 @@ class InheritedWidgetListPage extends StatelessWidget {
         child: Icon(Icons.add),
         backgroundColor: Colors.red,
         onPressed: () {
-          state.addItem(state.itemsCount + 1, DateTime.now());
+          state.addItem();
           context.vRouter.to('/widget/edit/${state.itemsCount - 1}');
         },
       ),

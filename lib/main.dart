@@ -4,6 +4,7 @@ import 'package:vrouter/vrouter.dart';
 import 'package:flutter_state_todolist/page/home.dart';
 import 'package:flutter_state_todolist/page/bloc/widget_builder.dart';
 import 'package:flutter_state_todolist/page/inherited_widget/widget_builder.dart';
+import 'package:flutter_state_todolist/page/riverpod/widget_builder.dart';
 
 void main() {
   runApp(
@@ -35,6 +36,19 @@ void main() {
                   widget: InheritedWidgetListPage(),
                   stackedRoutes: [
                     VWidget(path: 'edit/:index', widget: InheritedWidgetEditPage())
+                  ],
+                ),
+              ],
+            ),
+            VNester(
+              path: '/riverpod',
+              widgetBuilder: (child) => RiverpodWidgetBuilder(child),
+              nestedRoutes: [
+                VWidget(
+                  path: null,
+                  widget: RiverpodListPage(),
+                  stackedRoutes: [
+                    VWidget(path: 'edit/:index', widget: RiverpodEditPage())
                   ],
                 ),
               ],

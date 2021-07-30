@@ -20,8 +20,6 @@ class TodoEdit extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final TodoInheritedWidgetState state = TodoInheritedWidget.of(context);
-
     StringBuffer title = StringBuffer(todo.title);
     StringBuffer role = StringBuffer(todo.role);
     StringBuffer goal = StringBuffer(todo.goal);
@@ -34,9 +32,11 @@ class TodoEdit extends StatelessWidget {
       todo.value = value.toString();
       // TODO : SAVE
       if (route == 'widget') {
+        final TodoInheritedWidgetState state = TodoInheritedWidget.of(context);
         state.setItem(index, todo);
       } else if (route == 'bloc') {
         BlocProvider.of<TodoBloc>(context)..add(TodoEventSaving(todo));
+      } else if (route == 'riverpod') {
       }
       context.vRouter.to('/$route');
     }

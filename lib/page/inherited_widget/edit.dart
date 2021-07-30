@@ -11,10 +11,6 @@ class InheritedWidgetEditPage extends StatelessWidget {
     final TodoInheritedWidgetState state = TodoInheritedWidget.of(context);
     final index = int.parse(context.vRouter.pathParameters['index'] as String);
 
-    // TODO : init todo
-
-    print(state);
-
     return TodoEdit(name: "InheritedWidget", route: 'widget', todo: state.getItem(index), index: index);
   }
 }

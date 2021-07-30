@@ -12,10 +12,8 @@ class State {
 
 final stateList = [
   State('Inherited Widget', 'widget', 'Inherited Widget 설명 하는 글'),
-  State('BLOC', 'bloc', 'BLOC 설명 하는 글'),
-  // State('provider'),
-  // State('getit'),
-  // State('riverpod'),
+  State('BLOC Provider', 'bloc', 'BLOC 설명 하는 글'),
+  State('Riverpod', 'riverpod', 'Riverpod 설명 하는 글'),
 ];
 
 class HomePage extends StatelessWidget {
