@@ -4,22 +4,22 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_state_todolist/model/todo.dart';
 
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_state_todolist/state/bloc/todo/bloc.dart';
-import 'package:flutter_state_todolist/state/inherited_widget/todo.dart';
-
 class TodoListCard extends StatelessWidget {
   final Todo todo;
   final String route;
   final int index;
+  final void Function(int, Todo) onDelete;
 
   TodoListCard(
-      {Key? key, required this.todo, required this.route, required this.index})
+      {Key? key,
+      required this.todo,
+      required this.route,
+      required this.index,
+      required this.onDelete})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-
     return Card(
       shape: RoundedRectangleBorder(
           side: BorderSide(width: 1.0),
@@ -44,17 +44,7 @@ class TodoListCard extends StatelessWidget {
                 Text(DateFormat('yyyy-MM-dd').format(todo.created),
                     style: TextStyle(fontStyle: FontStyle.italic)),
                 PopupMenuButton(
-                  onSelected: (select) {
-                    // TODO : DELETE
-                    if (route == 'widget') {
-                      final TodoInheritedWidgetState state = TodoInheritedWidget.of(context);
-                      state.deleteItem(index);
-                    } else if (route == 'bloc') {
-                      BlocProvider.of<TodoBloc>(context)
-                        ..add(TodoEventDeleting(todo));
-                    } else if (route == 'riverpod') {
-                    }
-                  },
+                  onSelected: (select) => onDelete(index, todo),
                   itemBuilder: (context) => <PopupMenuEntry>[
                     const PopupMenuItem(value: 0, child: Text('delete'))
                   ],

@@ -12,9 +12,10 @@ class TodoList extends StateNotifier<List<Todo>> {
     state[index] = todo;
   }
 
-  void remove(int index) {
-    state.removeAt(index);
+  void remove(Todo todo) {
+    state = state.where((s) => s.uid != todo.uid).toList();
   }
 }
 
-final todoListProvider = StateNotifierProvider<TodoList, List<Todo>>((ref) => TodoList([]));
+final todoListProvider =
+    StateNotifierProvider<TodoList, List<Todo>>((ref) => TodoList([]));

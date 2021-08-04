@@ -11,18 +11,21 @@ class RiverpodListPage extends HookConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final todos = ref.watch(todoListProvider);
-    print(todos);
+
+    void onDelete(int index, Todo todo) {
+      ref.read(todoListProvider.notifier).remove(todo);
+      return;
+    }
 
     return Scaffold(
       appBar: AppBar(title: Text('TODOLIST (RiverPod)')),
-      // TODO : Show List, Edit
       body: ListView.builder(
         itemCount: todos.length,
         itemBuilder: (context, index) {
           return GestureDetector(
             onTap: () => context.vRouter.to('/riverpod/edit/$index'),
             child:
-                TodoListCard(todo: todos[index], route: 'widget', index: index),
+                TodoListCard(todo: todos[index], route: 'widget', index: index, onDelete: onDelete),
           );
         },
       ),

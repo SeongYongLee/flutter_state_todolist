@@ -2,6 +2,11 @@
 
 flutter_state_todolist
 
+여러가지 플러터 상태관리 라이브러리들을 사용하여 만들어본 TodoList 입니다.
+
+## UI Reference
+- https://www.kowanas.com/coding/2020/12/29/ui-%ea%b5%ac%ed%98%84%ed%95%98%ea%b8%b0
+
 ## ROUTER
 
 ### [VRouter](https://vrouter.dev)
@@ -15,7 +20,7 @@ flutter_state_todolist
 - https://blog.puppyloper.com/menus/Flutter/articles/Inherited%20widget%EC%9D%B4%20%EB%AD%90%EC%A7%80%3F
 - https://paulaner80.tistory.com/entry/Widget-State-BuildContext-%EA%B7%B8%EB%A6%AC%EA%B3%A0-InheritedWidget
 
-### BLOC Provider
+### Bloc Provider
 
 #### Reference
 - https://www.kowanas.com/coding/2020/12/26/bloc-2

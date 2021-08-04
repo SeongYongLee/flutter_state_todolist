@@ -5,6 +5,7 @@ import 'package:vrouter/vrouter.dart';
 
 import 'package:flutter_state_todolist/model/todo.dart';
 import 'package:flutter_state_todolist/component/todo_edit.dart';
+import 'package:flutter_state_todolist/state/bloc/todo/bloc.dart';
 import 'package:flutter_state_todolist/model/todo_repository.dart';
 
 class BlocEditPage extends StatelessWidget {
@@ -21,6 +22,11 @@ class BlocEditPage extends StatelessWidget {
       todo = RepositoryProvider.of<TodoRepository>(context).getNew() as Todo;
     }
 
-    return TodoEdit(name: "BLOC", route: 'bloc', todo: todo, index: -1);
+    void onSave(int index, Todo todo) {
+      BlocProvider.of<TodoBloc>(context)..add(TodoEventSaving(todo));
+      return;
+    }
+
+    return TodoEdit(name: "BLOC", route: 'bloc', todo: todo, index: -1, onSave: onSave);
   }
 }

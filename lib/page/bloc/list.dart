@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vrouter/vrouter.dart';
 
+import 'package:flutter_state_todolist/model/todo.dart';
 import 'package:flutter_state_todolist/state/bloc/todo/bloc.dart';
 import 'package:flutter_state_todolist/model/todo_repository.dart';
 import 'package:flutter_state_todolist/component/todo_list_card.dart';
@@ -10,6 +11,11 @@ import 'package:flutter_state_todolist/component/todo_list_card.dart';
 class BlocListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    void onDelete(int index, Todo todo) {
+      BlocProvider.of<TodoBloc>(context)..add(TodoEventDeleting(todo));
+      return;
+    }
+
     return Scaffold(
       appBar: AppBar(title: Text('TODOLIST (BLOC)')),
       body: BlocBuilder<TodoBloc, TodoState>(
@@ -23,7 +29,11 @@ class BlocListPage extends StatelessWidget {
                 return GestureDetector(
                   onTap: () => context.vRouter.to('/bloc/edit/$index'),
                   child: TodoListCard(
-                      todo: todos[index], route: 'bloc', index: index),
+                    todo: todos[index],
+                    route: 'bloc',
+                    index: index,
+                    onDelete: onDelete,
+                  ),
                 );
               },
             );
