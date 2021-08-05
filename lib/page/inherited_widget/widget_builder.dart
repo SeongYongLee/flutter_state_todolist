@@ -6,17 +6,13 @@ import 'package:flutter_state_todolist/state/inherited_widget/todo.dart';
 export 'list.dart';
 export 'edit.dart';
 
-const key = Key('todo inherited');
-
 class InheritedWidgetBuilder extends StatelessWidget {
   final Widget child;
 
   const InheritedWidgetBuilder(this.child);
   @override
   Widget build(BuildContext context) {
-    return TodoInherited(
-      key: key,
-      todos: TodoController(),
+    return TodoInheritedWidget(
       child: VMaterialApp(
         title: 'TODOLIST (Inherited Widget)',
         theme: ThemeData(

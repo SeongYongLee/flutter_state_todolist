@@ -1,44 +1,65 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_state_todolist/model/todo.dart';
 
-class TodoInherited extends InheritedWidget {
+class _TodoInherited extends InheritedWidget {
   final Widget child;
-  final TodoController todos;
+  final TodoInheritedWidgetState todo;
 
-  TodoInherited({Key? key, required this.todos, required this.child})
+  _TodoInherited({Key? key, required this.child, required this.todo})
       : super(key: key, child: child);
-
-  static TodoController? of(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<TodoInherited>()!.todos;
-  }
 
   @override
   bool updateShouldNotify(InheritedWidget oldWidget) => true;
 }
 
-class TodoController {
-  final controller = StreamController<List<Todo>>.broadcast();
-  List<Todo> state = <Todo>[];
+class TodoInheritedWidget extends StatefulWidget {
+  final Widget child;
 
-  delete(int index) {
-    if (state.length > index) {
-      state.removeAt(index);
-      controller.add(state);
-    }
+  TodoInheritedWidget({
+    Key? key,
+    required this.child,
+  }) : super(key: key);
+
+  @override
+  TodoInheritedWidgetState createState() => TodoInheritedWidgetState();
+
+  static TodoInheritedWidgetState of(BuildContext context) {
+    return (context.dependOnInheritedWidgetOfExactType<_TodoInherited>()
+            as _TodoInherited)
+        .todo;
+  }
+}
+
+class TodoInheritedWidgetState extends State<TodoInheritedWidget> {
+  List<Todo> _todolist = <Todo>[];
+
+  int get itemsCount => _todolist.length;
+
+  void addItem(Todo todo) {
+    setState(() {
+      _todolist.add(todo);
+    });
   }
 
-  add(Todo todo) {
-    print(todo);
-    print(state.length);
-    state.add(todo);
-    print(state.length);
-    controller.add(state);
+  Todo getItem(int index) {
+    return _todolist[index];
   }
 
-  edit(int index, Todo todo) {
-    state[index] = todo;
-    controller.add(state);
+  void setItem(int index, Todo todo) {
+    _todolist[index] = todo;
+  }
+
+  void deleteItem(int index) {
+    setState(() {
+      _todolist.removeAt(index);
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return _TodoInherited(
+      todo: this,
+      child: widget.child,
+    );
   }
 }

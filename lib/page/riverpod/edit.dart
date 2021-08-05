@@ -12,7 +12,6 @@ class RiverpodEditPage extends HookConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final index = int.parse(context.vRouter.pathParameters['index'] ?? '-1');
     final todos = ref.watch(todoListProvider);
-    print(index);
 
     void onSave(int index, Todo todo) {
       if (index == -1) {

@@ -10,13 +10,13 @@ class InheritedWidgetEditPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final index = int.parse(context.vRouter.pathParameters['index'] ?? '-1');
-    final todos = TodoInherited.of(context);
+    final TodoInheritedWidgetState state = TodoInheritedWidget.of(context);
 
     void onSave(int index, Todo todo) {
       if (index == -1) {
-        todos!.add(todo);
+        state.addItem(todo);
       } else {
-        todos!.edit(index, todo);
+        state.setItem(index, todo);
       }
       return;
     }
@@ -25,8 +25,8 @@ class InheritedWidgetEditPage extends StatelessWidget {
         name: "InheritedWidget",
         route: 'widget',
         todo: index == -1
-            ? Todo(todos!.state.length, DateTime.now())
-            : todos!.state[index],
+            ? Todo(state.itemsCount, DateTime.now())
+            : state.getItem(index),
         index: index,
         onSave: onSave);
   }
