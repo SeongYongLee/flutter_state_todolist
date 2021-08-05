@@ -16,12 +16,16 @@ void main() {
           stackedRoutes: [
             VNester(
               path: '/bloc',
-              widgetBuilder: (child) => BlocWidgetBuilder(child),
+              widgetBuilder: (child) {
+                print('bloc builder');
+                return BlocWidgetBuilder(child);
+              },
               nestedRoutes: [
                 VWidget(
                   path: null,
                   widget: BlocListPage(),
                   stackedRoutes: [
+                    VWidget(path: 'new', widget: BlocEditPage()),
                     VWidget(path: 'edit/:index', widget: BlocEditPage())
                   ],
                 ),
@@ -29,13 +33,18 @@ void main() {
             ),
             VNester(
               path: '/widget',
-              widgetBuilder: (child) => InheritedWidgetBuilder(child),
+              widgetBuilder: (child) {
+                print('inherited builder');
+                return InheritedWidgetBuilder(child);
+              },
               nestedRoutes: [
                 VWidget(
                   path: null,
                   widget: InheritedWidgetListPage(),
                   stackedRoutes: [
-                    VWidget(path: 'edit/:index', widget: InheritedWidgetEditPage())
+                    VWidget(path: 'new', widget: InheritedWidgetEditPage()),
+                    VWidget(
+                        path: 'edit/:index', widget: InheritedWidgetEditPage())
                   ],
                 ),
               ],
@@ -48,6 +57,7 @@ void main() {
                   path: null,
                   widget: RiverpodListPage(),
                   stackedRoutes: [
+                    VWidget(path: 'new', widget: RiverpodEditPage()),
                     VWidget(path: 'edit/:index', widget: RiverpodEditPage())
                   ],
                 ),

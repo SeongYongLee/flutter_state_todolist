@@ -10,14 +10,14 @@ class TodoRepository {
     return _todos.values.toList();
   }
 
-  Todo? getNew() {
-    lastId += 1;
-    _todos[lastId] = Todo(lastId, DateTime.now());
-    return _todos[lastId];
-  }
-
   Todo? get(int uid) {
     return _todos[uid];
+  }
+
+  Todo? create(Todo todo) {
+    lastId += 1;
+    _todos[lastId] = todo;
+    return _todos[lastId];
   }
 
   void set(Todo todo) {

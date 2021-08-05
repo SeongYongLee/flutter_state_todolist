@@ -23,9 +23,12 @@ class RiverpodListPage extends HookConsumerWidget {
         itemCount: todos.length,
         itemBuilder: (context, index) {
           return GestureDetector(
-            onTap: () => context.vRouter.to('/riverpod/edit/$index'),
-            child:
-                TodoListCard(todo: todos[index], route: 'widget', index: index, onDelete: onDelete),
+            onTap: () => context.vRouter.to('/edit/$index'),
+            child: TodoListCard(
+                todo: todos[index],
+                route: 'widget',
+                index: index,
+                onDelete: onDelete),
           );
         },
       ),
@@ -33,8 +36,7 @@ class RiverpodListPage extends HookConsumerWidget {
         child: Icon(Icons.add),
         backgroundColor: Colors.red,
         onPressed: () {
-          ref.read(todoListProvider.notifier).add();
-          context.vRouter.to('/riverpod/edit/${todos.length - 1}');
+          context.vRouter.to('new');
         },
       ),
     );

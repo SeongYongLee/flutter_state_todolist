@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:vrouter/vrouter.dart';
-import 'package:flutter_state_todolist/model/todo.dart';
 import 'package:flutter_state_todolist/state/inherited_widget/todo.dart';
 
 export 'list.dart';

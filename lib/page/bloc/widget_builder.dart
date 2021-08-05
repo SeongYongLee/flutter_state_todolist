@@ -19,8 +19,9 @@ class BlocWidgetBuilder extends StatelessWidget {
     return RepositoryProvider(
       create: (context) => TodoRepository(),
       child: BlocProvider(
-        create: (context) => TodoBloc(RepositoryProvider.of<TodoRepository>(context))
-          ..add(TodoEventFetching()),
+        create: (context) =>
+            TodoBloc(RepositoryProvider.of<TodoRepository>(context))
+              ..add(TodoEventFetching()),
         child: VMaterialApp(
           title: 'TODOLIST (BLOC)',
           theme: ThemeData(

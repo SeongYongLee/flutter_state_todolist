@@ -4,8 +4,8 @@ import 'package:hooks_riverpod/hooks_riverpod.dart';
 class TodoList extends StateNotifier<List<Todo>> {
   TodoList([List<Todo>? initialTodos]) : super(initialTodos ?? []);
 
-  void add() {
-    state.add(Todo(state.length, DateTime.now()));
+  void add(Todo todo) {
+    state.add(todo);
   }
 
   void set(int index, Todo todo) {

@@ -11,22 +11,25 @@ import 'package:flutter_state_todolist/model/todo_repository.dart';
 class BlocEditPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Todo todo;
-    final index = int.parse(context.vRouter.pathParameters['index'] as String);
-
-    if (index != -1) {
-      final repository = RepositoryProvider.of<TodoRepository>(context);
-      final todos = repository.getList();
-      todo = todos[index];
-    } else {
-      todo = RepositoryProvider.of<TodoRepository>(context).getNew() as Todo;
-    }
+    final index = int.parse(context.vRouter.pathParameters['index'] ?? '-1');
+    final repository = RepositoryProvider.of<TodoRepository>(context);
+    final todos = repository.getList();
 
     void onSave(int index, Todo todo) {
-      BlocProvider.of<TodoBloc>(context)..add(TodoEventSaving(todo));
+      if (index == -1) {
+        repository.create(todo);
+      } else {
+        BlocProvider.of<TodoBloc>(context)..add(TodoEventSaving(todo));
+      }
+
       return;
     }
 
-    return TodoEdit(name: "BLOC", route: 'bloc', todo: todo, index: -1, onSave: onSave);
+    return TodoEdit(
+        name: "BLOC",
+        route: 'bloc',
+        todo: index == -1 ? Todo(todos.length, DateTime.now()) : todos[index],
+        index: index,
+        onSave: onSave);
   }
 }

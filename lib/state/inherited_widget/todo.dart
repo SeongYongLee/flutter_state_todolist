@@ -5,7 +5,8 @@ class _TodoInherited extends InheritedWidget {
   final Widget child;
   final TodoInheritedWidgetState todo;
 
-  _TodoInherited({Key? key, required this.child, required this.todo}) : super(key: key, child: child);
+  _TodoInherited({Key? key, required this.child, required this.todo})
+      : super(key: key, child: child);
 
   @override
   bool updateShouldNotify(InheritedWidget oldWidget) => true;
@@ -23,19 +24,20 @@ class TodoInheritedWidget extends StatefulWidget {
   TodoInheritedWidgetState createState() => TodoInheritedWidgetState();
 
   static TodoInheritedWidgetState of(BuildContext context) {
-    return (context.dependOnInheritedWidgetOfExactType<_TodoInherited>() as _TodoInherited).todo;
+    return (context.dependOnInheritedWidgetOfExactType<_TodoInherited>()
+            as _TodoInherited)
+        .todo;
   }
 }
-
 
 class TodoInheritedWidgetState extends State<TodoInheritedWidget> {
   List<Todo> _todolist = <Todo>[];
 
   int get itemsCount => _todolist.length;
 
-  void addItem() {
+  void addItem(Todo todo) {
     setState(() {
-      _todolist.add(Todo(itemsCount, DateTime.now()));
+      _todolist.add(todo);
     });
   }
 
