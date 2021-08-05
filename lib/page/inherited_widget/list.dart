@@ -9,24 +9,23 @@ import 'package:flutter_state_todolist/state/inherited_widget/todo.dart';
 class InheritedWidgetListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final TodoInheritedWidgetState state = TodoInheritedWidget.of(context);
-
+    print(TodoInherited.of(context)!.todos);
+    final todos = TodoInherited.of(context)!.todos;
+    print(todos.hashCode);
     void onDelete(int index, Todo todo) {
-      final TodoInheritedWidgetState state = TodoInheritedWidget.of(context);
-      state.deleteItem(index);
+      todos.delete(index);
       return;
     }
 
     return Scaffold(
       appBar: AppBar(title: Text('TODOLIST (Inherited Widget)')),
-      // TODO : Show List, Edit
       body: ListView.builder(
-        itemCount: state.itemsCount,
+        itemCount: todos.state.length,
         itemBuilder: (context, index) {
           return GestureDetector(
-            onTap: () => context.vRouter.to('/widget/edit/$index'),
+            onTap: () => context.vRouter.to('edit/$index'),
             child: TodoListCard(
-                todo: state.getItem(index),
+                todo: todos.state[index],
                 route: 'widget',
                 index: index,
                 onDelete: onDelete),
@@ -37,8 +36,7 @@ class InheritedWidgetListPage extends StatelessWidget {
         child: Icon(Icons.add),
         backgroundColor: Colors.red,
         onPressed: () {
-          state.addItem();
-          context.vRouter.to('/widget/edit/${state.itemsCount - 1}');
+          context.vRouter.to('new');
         },
       ),
     );

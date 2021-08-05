@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_state_todolist/state/inherited_widget/todo.dart';
 import 'package:vrouter/vrouter.dart';
 
 import 'package:flutter_state_todolist/page/home.dart';
@@ -22,6 +23,7 @@ void main() {
                   path: null,
                   widget: BlocListPage(),
                   stackedRoutes: [
+                    VWidget(path: 'new', widget: BlocEditPage()),
                     VWidget(path: 'edit/:index', widget: BlocEditPage())
                   ],
                 ),
@@ -35,7 +37,9 @@ void main() {
                   path: null,
                   widget: InheritedWidgetListPage(),
                   stackedRoutes: [
-                    VWidget(path: 'edit/:index', widget: InheritedWidgetEditPage())
+                    VWidget(path: 'new', widget: InheritedWidgetEditPage()),
+                    VWidget(
+                        path: 'edit/:index', widget: InheritedWidgetEditPage())
                   ],
                 ),
               ],
@@ -48,6 +52,7 @@ void main() {
                   path: null,
                   widget: RiverpodListPage(),
                   stackedRoutes: [
+                    VWidget(path: 'new', widget: RiverpodEditPage()),
                     VWidget(path: 'edit/:index', widget: RiverpodEditPage())
                   ],
                 ),

@@ -27,7 +27,7 @@ class BlocListPage extends StatelessWidget {
               itemCount: todos.length,
               itemBuilder: (context, index) {
                 return GestureDetector(
-                  onTap: () => context.vRouter.to('/bloc/edit/$index'),
+                  onTap: () => context.vRouter.to('/edit/$index'),
                   child: TodoListCard(
                     todo: todos[index],
                     route: 'bloc',
@@ -47,7 +47,7 @@ class BlocListPage extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         child: Icon(Icons.add),
         backgroundColor: Colors.red,
-        onPressed: () => context.vRouter.to('/bloc/edit/-1'),
+        onPressed: () => context.vRouter.to('new'),
         // onPressed: () {
         //   Navigator.pushNamed(context, '/bloc/edit', arguments: RepositoryProvider.of<TodoRepository>(context).getNew());
         // },

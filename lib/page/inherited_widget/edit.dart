@@ -9,15 +9,25 @@ import 'package:flutter_state_todolist/state/inherited_widget/todo.dart';
 class InheritedWidgetEditPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final TodoInheritedWidgetState state = TodoInheritedWidget.of(context);
-    final index = int.parse(context.vRouter.pathParameters['index'] as String);
+    final index = int.parse(context.vRouter.pathParameters['index'] ?? '-1');
+    final todos = TodoInherited.of(context)!.todos;
 
     void onSave(int index, Todo todo) {
-      final TodoInheritedWidgetState state = TodoInheritedWidget.of(context);
-      state.setItem(index, todo);
+      if (index == -1) {
+        todos.add(todo);
+      } else {
+        todos.edit(index, todo);
+      }
       return;
     }
 
-    return TodoEdit(name: "InheritedWidget", route: 'widget', todo: state.getItem(index), index: index, onSave: onSave);
+    return TodoEdit(
+        name: "InheritedWidget",
+        route: 'widget',
+        todo: index == -1
+            ? Todo(todos.state.length, DateTime.now())
+            : todos.state[index],
+        index: index,
+        onSave: onSave);
   }
 }
