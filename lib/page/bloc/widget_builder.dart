@@ -17,10 +17,7 @@ class BlocWidgetBuilder extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RepositoryProvider(
-      create: (context) {
-        print("create bloc");
-        return TodoRepository();
-      },
+      create: (context) => TodoRepository(),
       child: BlocProvider(
         create: (context) =>
             TodoBloc(RepositoryProvider.of<TodoRepository>(context))

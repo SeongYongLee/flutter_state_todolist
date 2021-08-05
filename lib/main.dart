@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_state_todolist/state/inherited_widget/todo.dart';
 import 'package:vrouter/vrouter.dart';
 
 import 'package:flutter_state_todolist/page/home.dart';
@@ -17,7 +16,10 @@ void main() {
           stackedRoutes: [
             VNester(
               path: '/bloc',
-              widgetBuilder: (child) => BlocWidgetBuilder(child),
+              widgetBuilder: (child) {
+                print('bloc builder');
+                return BlocWidgetBuilder(child);
+              },
               nestedRoutes: [
                 VWidget(
                   path: null,
@@ -31,7 +33,10 @@ void main() {
             ),
             VNester(
               path: '/widget',
-              widgetBuilder: (child) => InheritedWidgetBuilder(child),
+              widgetBuilder: (child) {
+                print('inherited builder');
+                return InheritedWidgetBuilder(child);
+              },
               nestedRoutes: [
                 VWidget(
                   path: null,

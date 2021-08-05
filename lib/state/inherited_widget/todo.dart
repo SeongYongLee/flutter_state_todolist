@@ -5,15 +5,13 @@ import 'package:flutter_state_todolist/model/todo.dart';
 
 class TodoInherited extends InheritedWidget {
   final Widget child;
-  final todos = TodoController();
+  final TodoController todos;
 
-  TodoInherited({Key? key, required this.child})
-      : super(key: key, child: child) {
-    print('repaint inherited');
-  }
+  TodoInherited({Key? key, required this.todos, required this.child})
+      : super(key: key, child: child);
 
-  static TodoInherited? of(BuildContext context) {
-    return context.dependOnInheritedWidgetOfExactType<TodoInherited>();
+  static TodoController? of(BuildContext context) {
+    return context.dependOnInheritedWidgetOfExactType<TodoInherited>()!.todos;
   }
 
   @override
@@ -22,7 +20,7 @@ class TodoInherited extends InheritedWidget {
 
 class TodoController {
   final controller = StreamController<List<Todo>>.broadcast();
-  final state = <Todo>[];
+  List<Todo> state = <Todo>[];
 
   delete(int index) {
     if (state.length > index) {
